@@ -22,6 +22,8 @@ public:
 
     StringPool& getStringPool() { return stringPool; }
 
+    ChunkHeaderRange& getDocumentRange() { return mainRange; }
+
 };
 
 }

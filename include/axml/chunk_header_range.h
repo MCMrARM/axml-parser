@@ -16,9 +16,9 @@ public:
     public:
         Iterator(ChunkHeader* header) : header(header) {}
 
-        ChunkHeader* operator ->() { return header; }
-        ChunkHeader* operator*() { return header; }
-        operator ChunkHeader*() { return header; }
+        ChunkHeader* operator ->() const { return header; }
+        ChunkHeader* operator*() const { return header; }
+        operator ChunkHeader*() const { return header; }
 
         Iterator& operator++() {
             header = (ChunkHeader*) ((size_t) header + header->size);

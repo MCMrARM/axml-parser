@@ -14,6 +14,7 @@ AXMLFile::AXMLFile(void* data, size_t size) : data(data), size(size) {
             if (h->headerSize < sizeof(StringPoolHeader))
                 throw std::runtime_error("StringPool header is not big enough");
             stringPool = StringPool((StringPoolHeader*) h);
+            break;
         }
     }
 }
