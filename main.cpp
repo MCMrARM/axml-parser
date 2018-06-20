@@ -21,6 +21,21 @@ int main(int argc, const char* argv[]) {
         } else if (parser.eventType() == axml::AXMLParser::END_NAMESPACE) {
             printf("END_NAMESPACE prefix=%s url=%s\n", parser.getNamespacePrefix().c_str(),
                    parser.getNamespaceUrl().c_str());
+        } else if (parser.eventType() == axml::AXMLParser::START_ELEMENT) {
+            printf("START_ELEMENT ns=%s name=%s\n", parser.getElementNs().c_str(), parser.getElementName().c_str());
+            size_t attrCount = parser.getElementAttributeCount();
+            for (size_t i = 0; i < attrCount; i++) {
+                auto& typedValue = parser.getElementAttributeTypedValue(i);
+                printf(" ATTRIBUTE ns=%s name=%s ", parser.getElementAttributeNs(i).c_str(),
+                       parser.getElementAttributeName(i).c_str());
+                if (typedValue.isInteger()) {
+                    printf("typedValue=%i\n", typedValue.data);
+                } else {
+                    printf("rawValue=%s\n", parser.getElementAttributeRawValue(i).c_str());
+                }
+            }
+        } else if (parser.eventType() == axml::AXMLParser::END_ELEMENT) {
+            printf("END_ELEMENT ns=%s name=%s\n", parser.getElementNs().c_str(), parser.getElementName().c_str());
         }
     }
     munmap(ptr, size);

@@ -1,6 +1,7 @@
 #include <axml/string_pool.h>
 #include <codecvt>
 #include <locale>
+#include <climits>
 
 using namespace axml;
 
@@ -50,6 +51,8 @@ std::string StringPool::getStringAtOffset(size_t offset) const {
 
 std::string StringPool::getString(size_t index) const {
     assertHasHeader();
+    if (index == UINT_MAX)
+        return std::string();
     if (index >= header->stringCount)
         throw std::out_of_range("Index out of bounds");
     uint32_t* entries = (uint32_t*) ((size_t) (void*) header + header->headerSize);

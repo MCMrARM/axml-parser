@@ -50,7 +50,15 @@ public:
     std::string getNamespacePrefix() const { return stringPool.getString(getNode<NamespaceChunkData>()->prefix); }
     std::string getNamespaceUrl() const { return stringPool.getString(getNode<NamespaceChunkData>()->url); }
 
+    std::string getElementNs() const { return stringPool.getString(getNode<ElementChunkData>()->ns); }
+    std::string getElementName() const { return stringPool.getString(getNode<ElementChunkData>()->name); }
 
+    AttributeChunkData* getElementAttribute(size_t i) const;
+    size_t getElementAttributeCount() const { return getNode<StartElementChunkData>()->attributeCount; }
+    std::string getElementAttributeNs(size_t i) const { return stringPool.getString(getElementAttribute(i)->ns); }
+    std::string getElementAttributeName(size_t i) const { return stringPool.getString(getElementAttribute(i)->name); }
+    ResValue& getElementAttributeTypedValue(size_t i) const { return getElementAttribute(i)->typedValue; }
+    std::string getElementAttributeRawValue(size_t i) const { return stringPool.getString(getElementAttribute(i)->rawValue); }
 
 };
 
