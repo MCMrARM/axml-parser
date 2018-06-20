@@ -10,8 +10,7 @@ void ChunkHeaderRange::validate() {
             (size_t) header + header->size > (size_t) pEnd)
             throw std::out_of_range("Invalid chunk size");
         if (header->type == ChunkHeader::TYPE_XML) {
-            ChunkHeaderRange((ChunkHeader*) ((size_t) header + header->headerSize),
-                             (ChunkHeader*) ((size_t) header + header->size)).validate();
+            ChunkHeaderRange(header).validate();
         }
     }
 }

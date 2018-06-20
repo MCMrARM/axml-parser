@@ -32,17 +32,17 @@ std::string StringPool::getStringAtOffset(size_t offset) const {
     assertHasHeader();
     assertSize(offset < header->size);
     if (utf8) {
-        uint8_t* ptr = (uint8_t*) ((size_t) (void*) header + header->headerSize + offset);
+        uint8_t* ptr = (uint8_t*) ((size_t) (void*) header + header->stringsStart + offset);
         size_t lenSize;
         size_t size = decodeLength(ptr, header->size - offset, lenSize);
         assertSize(offset + size + lenSize <= header->size);
-        return std::string((char*) &ptr[lenSize], header->size - offset - lenSize);
+        return std::string((char*) &ptr[lenSize], size);
     } else {
-        uint16_t* ptr = (uint16_t*) ((size_t) (void*) header + header->headerSize);
+        uint16_t* ptr = (uint16_t*) ((size_t) (void*) header + header->stringsStart + offset);
         size_t lenSize;
         size_t size = decodeLength(ptr, header->size - offset, lenSize);
         assertSize(offset + (size + lenSize) * sizeof(uint16_t) <= header->size);
-        std::u16string str((char16_t*) &ptr[lenSize], (header->size - offset) / sizeof(uint16_t) - lenSize);
+        std::u16string str((char16_t*) &ptr[lenSize], size);
         std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> cvt;
         return cvt.to_bytes(str);
     }

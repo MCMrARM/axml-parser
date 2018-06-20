@@ -26,7 +26,12 @@ public:
         }
     };
 
+    ChunkHeaderRange() : pBegin(nullptr), pEnd(nullptr) {}
+
     ChunkHeaderRange(ChunkHeader* pBegin, ChunkHeader* pEnd) : pBegin(pBegin), pEnd(pEnd) {}
+
+    ChunkHeaderRange(ChunkHeader* parent) : pBegin((ChunkHeader*) ((size_t) parent + parent->headerSize)),
+                                            pEnd((ChunkHeader*) ((size_t) parent + parent->size)) {}
 
     Iterator begin() const { return pBegin; }
 

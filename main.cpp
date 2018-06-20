@@ -12,6 +12,8 @@ int main(int argc, const char* argv[]) {
         throw std::runtime_error("Failed to get file size");
     void* ptr = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
     axml::AXMLFile file (ptr, size);
+    for (int i = 0; i < file.getStringPool().getStringCount(); i++)
+        printf("%s\n", file.getStringPool().getString(i).c_str());
     munmap(ptr, size);
     return 0;
 }

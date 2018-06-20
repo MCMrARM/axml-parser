@@ -14,12 +14,11 @@ private:
     void* data;
     size_t size;
 
+    ChunkHeaderRange mainRange;
     StringPool stringPool;
 
 public:
-    AXMLFile(void* data, size_t size) : data(data), size(size) {
-        ChunkHeaderRange((ChunkHeader*) data, (ChunkHeader*) ((size_t) data + size)).validate();
-    }
+    AXMLFile(void* data, size_t size);
 
     StringPool& getStringPool() { return stringPool; }
 
