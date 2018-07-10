@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.0)
 project(axml_parser)
 
 set(CMAKE_CXX_STANDARD 11)
